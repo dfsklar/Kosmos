@@ -12,6 +12,9 @@ dist:	all
 	cp external/*.js dist/external/
 	cp LICENSE dist/
 
+devel:  dist
+	coffee -w -c -m -o dist/compiled source/*.coffee  shaders/*.coffee
+
 clean:
 	rm -r compiled
 	rm -r dist
