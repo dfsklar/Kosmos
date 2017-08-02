@@ -8,6 +8,8 @@ root = exports ? this
 enableRetina = true
 camera = null
 
+enableSaveLocation = false
+
 starfield = null
 planetfield = null
 
@@ -96,7 +98,7 @@ root.kosmosMain = ->
 	}
 	planetfield = new Planetfield {
 		starfield: starfield,
-		maxPlanetsPerSystem: 3,
+		maxPlanetsPerSystem: 1,
 		minOrbitScale: 15,
 		maxOrbitScale: 30,
 		planetSize: 1.0,
@@ -186,12 +188,13 @@ updateMouse = ->
 
 root.saveLocation = ->
 	# save to localstorage
-	if typeof(Storage) != undefined
-		localStorage["kosmosOffset" + i] = camera.position[i] for i in [0..2]
-		localStorage["kosmosOrigin" + i] = originOffset[i] for i in [0..2]
-		localStorage["kosmosRotation" + i] = desiredRotation[i] for i in [0..3]
+	if enableSaveLocation
+		if typeof(storage) != undefined
+			localstorage["kosmosoffset" + i] = camera.position[i] for i in [0..2]
+			localstorage["kosmosorigin" + i] = originoffset[i] for i in [0..2]
+			localstorage["kosmosrotation" + i] = desiredrotation[i] for i in [0..3]
 
-	# update "share" URL
+	# update "share" url
 	if document.getElementById("shareMessage").style.display == "block"
 		url = "http://judnich.github.io/Kosmos/index.html#go"
 		url += ":" + camera.position[i] for i in [0..2]
@@ -202,7 +205,11 @@ root.saveLocation = ->
 
 
 root.loadLocation = ->
-	loadedLocation = false
+	desiredSpeed = 0.0
+	smoothSpeed = 0.0
+
+	if not enableSaveLocation
+		return
 
 	if not window.location.hash
 		# load previously saved location from localStorage
@@ -231,8 +238,6 @@ root.loadLocation = ->
 		# remove hash from URL
 		history.pushState("", document.title, window.location.pathname + window.location.search)
 
-	desiredSpeed = 0.0
-	smoothSpeed = 0.0
 
 
 root.parseLocationString = (hash) ->
@@ -397,6 +402,3 @@ updateCoordinateSystem = ->
 	#
 	#	vec3.sub(camera.position, camera.position, planetPos)
 	#	vec3.add(originOffset, originOffset, planetPos)
-
-
-

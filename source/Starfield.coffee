@@ -29,6 +29,7 @@ class root.Starfield
 		starPositions = []
 		for i in [0 .. @_starBufferSize-1]
 			pos = [randomStream.unit(), randomStream.unit(), randomStream.unit(), randomStream.unit()]
+			# pos = [0, 0, 0, 1]
 			starPositions[i] = pos
 
 		# generate vertex buffer

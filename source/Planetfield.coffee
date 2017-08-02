@@ -224,12 +224,16 @@ class root.Planetfield
 			randomStream.seed = Math.floor(w * 1000000)
 
 			systemPlanets = randomStream.intRange(0, @maxPlanetsPerSystem)
+			systemPlanets = 1
 			if @numPlanets + systemPlanets > @_planetBufferSize then break
 
 			for i in [1 .. systemPlanets]
 				radius = @_starfield.starSize * randomStream.range(@minOrbitScale, @maxOrbitScale)
 				angle = randomStream.radianAngle()
 				[x, y, z] = [dx + radius * Math.sin(angle), dy + radius * Math.cos(angle), dz + w * Math.sin(angle)]
+
+				[x, y, z] = [0, 0, 0]
+				radius = 99999
 
 				# store in @meshPlanets if this is close enough that it will be rendered as a mesh
 				dist = Math.sqrt(x*x + y*y + z*z)
