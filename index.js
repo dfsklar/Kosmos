@@ -11,7 +11,7 @@
 _speed = 0.0;
 _reverseMode = false;
 _sliderMouseDown = false;
-_ignoreWarning = false;
+_ignoreWarning = true;
 _autopilotMode = true;
 
 function detectMobile() { 
@@ -197,8 +197,7 @@ function updateMessagePositions() {
 }
 
 function showIntro() {
-	var msg = document.getElementById("introMessage");
-	msg.style.display = "block";
+  return;
 }
 
 function showShare() {

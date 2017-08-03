@@ -185,26 +185,24 @@ updateMouse = ->
 
 
 root.saveLocation = ->
-	# save to localstorage
-	if typeof(Storage) != undefined
-		localStorage["kosmosOffset" + i] = camera.position[i] for i in [0..2]
-		localStorage["kosmosOrigin" + i] = originOffset[i] for i in [0..2]
-		localStorage["kosmosRotation" + i] = desiredRotation[i] for i in [0..3]
-
 	# update "share" URL
 	if document.getElementById("shareMessage").style.display == "block"
 		url = "http://judnich.github.io/Kosmos/index.html#go"
 		url += ":" + camera.position[i] for i in [0..2]
 		url += ":" + originOffset[i] for i in [0..2]
 		url += ":" + Math.round(desiredRotation[i] * 1000) / 1000 for i in [0..3]
-
 		document.getElementById("shareLink").value = url
+	# save to localstorage
+	if typeof(Storage) != undefined
+		localStorage["kosmosOffset" + i] = camera.position[i] for i in [0..2]
+		localStorage["kosmosOrigin" + i] = originOffset[i] for i in [0..2]
+		localStorage["kosmosRotation" + i] = desiredRotation[i] for i in [0..3]
 
 
 root.loadLocation = ->
 	loadedLocation = false
 
-	if not window.location.hash
+	if false    # and not window.location.hash
 		# load previously saved location from localStorage
 		if typeof(Storage) != undefined
 			loadedLocation = true
