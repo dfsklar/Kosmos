@@ -69,6 +69,9 @@ class root.PlanetFarMesh
 	renderInstance: (camera, posVec, lightVec, alpha, textureMap, color1, color2) ->
 		modelViewMat = mat4.create()
 		mat4.translate(modelViewMat, modelViewMat, posVec)
+		console.log("renderInstance FAR")
+		mat4.rotate(modelViewMat,   modelViewMat, 3, [1, 0, 0])
+
 		mat4.mul(modelViewMat, camera.viewMat, modelViewMat)
 
 		gl.uniformMatrix4fv(@shader.uniforms.projMat, false, camera.projMat)

@@ -10,6 +10,8 @@ class root.PlanetNearMesh
 		@minRectSize = chunkRes / maxRes
 		@maxLodError = 0.020
 
+		@tickCount = 0
+
 		# load planet shader
 		@shader = xgl.loadProgram("planetNearMesh")
 		@shader.uniforms = xgl.getProgramUniforms(@shader, 
@@ -91,9 +93,16 @@ class root.PlanetNearMesh
 	renderInstance: (camera, planetPos, lightVec, alpha, textureMaps, detailMap, color1, color2) ->
 		modelViewMat = mat4.create()
 		mat4.translate(modelViewMat, modelViewMat, planetPos)
-		mat4.mul(modelViewMat, camera.viewMat, modelViewMat)
+		#mat4.rotate(modelViewMat,   modelViewMat, (@tickCount*0.01), [0, 1, 0])
 
-		gl.uniformMatrix4fv(@shader.uniforms.projMat, false, camera.projMat)
+		@tickCount += 1
+
+		# mat4.mul(modelViewMat, camera.viewMat, modelViewMat)
+		projMat = mat4.create()
+		#mat4.mul(projMat,    camera.projMat, camera.viewMat)
+		mat4.copy(projMat,  camera.projMat)
+
+		gl.uniformMatrix4fv(@shader.uniforms.projMat, false, projMat)
 		gl.uniformMatrix4fv(@shader.uniforms.modelViewMat, false, modelViewMat)
 		gl.uniform3fv(@shader.uniforms.lightVec, lightVec)
 		gl.uniform1f(@shader.uniforms.alpha, alpha)

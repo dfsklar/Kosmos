@@ -96,7 +96,7 @@ root.kosmosMain = ->
 	}
 	planetfield = new Planetfield {
 		starfield: starfield,
-		maxPlanetsPerSystem: 3,
+		maxPlanetsPerSystem: 1,
 		minOrbitScale: 15,
 		maxOrbitScale: 30,
 		planetSize: 1.0,
@@ -335,6 +335,10 @@ tick = ->
 lastIdle = false
 
 sleepIfIdle = ->
+	# Sklar does not want idle ever
+	idle = false
+	return
+
 	idle = true
 	epsilon = 0.0000000001
 

@@ -311,6 +311,7 @@ class root.Planetfield
 				textureMap = @farMapCache.getContent(seed)
 				if textureMap
 					colorIndex = seed % planetColors.length
+					colorIndex = 2  #DFSKLARD
 					[planetColor1, planetColor2] = planetColors[colorIndex]
 					@farMesh.renderInstance(camera, globalPos, lightVec, alpha, textureMap, planetColor1, planetColor2)
 
@@ -353,6 +354,7 @@ class root.Planetfield
 				textureMap = @nearMapCache.getContent(seed)
 				if textureMap
 					colorIndex = seed % planetColors.length
+					colorIndex = 3  #DFSKLARD
 					[planetColor1, planetColor2] = planetColors[colorIndex]
 					@nearMesh.renderInstance(camera, globalPos, lightVec, alpha, textureMap, @detailMapTex, planetColor1, planetColor2)
 
