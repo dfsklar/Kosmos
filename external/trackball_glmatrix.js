@@ -30,7 +30,7 @@ window.vec3extension = {
 window.TrackballControls = function ( camera, domElement ) {
 
   /* 
-     camera must have:  position, up 
+     camera must have:  position, up, target
    */
 
 	var _this = this;

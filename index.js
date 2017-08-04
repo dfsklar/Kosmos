@@ -7,9 +7,9 @@
 // now in the sense that most of Kosmos is in the 3D rendering stuff, not the management
 // of slider bars.
 
-var CANVAS = null;
-var TRACKBALL = null;
-var CAMERA = null;
+window.CANVAS = null;
+window.TRACKBALL = null;
+window.CAMERA = null;
 
 _speed = 0.0;
 _reverseMode = false;
@@ -70,12 +70,12 @@ function jsMain() {
 	resizeCanvas();
 
   // Connect up the special DFSklarD trackball
-	CANVAS = document.getElementById("kosmosCanvas");
-  CAMERA = {
+	window.CANVAS = document.getElementById("kosmosCanvas");
+  window.CAMERA = {
       position: vec3.create(),
       up: vec3.create()
   };
-  TRACKBALL = new window.TrackballControls(CAMERA, CANVAS);
+  window.TRACKBALL = new window.TrackballControls(window.CAMERA, window.CANVAS);
 
 	// set up slider events
 	var slider = document.getElementById("slider");

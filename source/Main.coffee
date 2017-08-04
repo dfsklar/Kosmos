@@ -73,9 +73,9 @@ root.kosmosMain = ->
 	# setup events
 	root.canvas = $("#kosmosCanvas")[0]
 
-	$(canvas).mousedown(mouseDown)
-	$(canvas).mouseup(mouseUp)
-	$(canvas).mousemove(mouseMove)
+	#$(canvas).mousedown(mouseDown)
+	#$(canvas).mouseup(mouseUp)
+	#$(canvas).mousemove(mouseMove)
 
 	# set up canvas
 	kosmosResize()
