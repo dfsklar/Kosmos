@@ -9,7 +9,7 @@
 
 window.CANVAS = null;
 window.TRACKBALL = null;
-window.CAMERA = null;
+// window.CAMERA will be set by the CoffeeScript Main function
 
 _speed = 0.0;
 _reverseMode = false;
@@ -69,14 +69,6 @@ function jsMain() {
 
 	resizeCanvas();
 
-  // Connect up the special DFSklarD trackball
-	window.CANVAS = document.getElementById("kosmosCanvas");
-  window.CAMERA = {
-      position: vec3.create(),
-      up: vec3.create()
-  };
-  window.TRACKBALL = new window.TrackballControls(window.CAMERA, window.CANVAS);
-
 	// set up slider events
 	var slider = document.getElementById("slider");
 
@@ -135,6 +127,11 @@ function jsMain() {
 
 	updateSpeed();
 	showIntro();
+
+  // Connect up the special DFSklarD trackball
+	window.CANVAS = document.getElementById("kosmosCanvas");
+  window.TRACKBALL = new window.TrackballControls(window.CAMERA, window.CANVAS);
+
 
 	window.onresize = function() {
 		resizeCanvas();

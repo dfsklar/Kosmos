@@ -8,6 +8,8 @@ root = exports ? this
 enableRetina = true
 camera = null
 
+cameraAutoNudgeHasOccurred = false
+
 starfield = null
 planetfield = null
 
@@ -73,6 +75,7 @@ root.kosmosMain = ->
 	# setup events
 	root.canvas = $("#kosmosCanvas")[0]
 
+	# I am using my webgl trackball, not the Kosmos UI
 	#$(canvas).mousedown(mouseDown)
 	#$(canvas).mouseup(mouseUp)
 	#$(canvas).mousemove(mouseMove)
@@ -110,6 +113,7 @@ root.kosmosMain = ->
 	camera.aspect = canvas.width / canvas.height
 	camera.position = vec3.fromValues(0, 0, 0)
 	camera.fov = xgl.degToRad(40)
+	window.CAMERA = camera
 
 	# restore last location
 	loadLocation()
@@ -268,10 +272,11 @@ tick = ->
 	# update camera speed with smoothing
 	smoothSpeed = smoothSpeed * 0.90 + 0.10 * desiredSpeed * speedScale
 
-	# move camera
-	moveVec = vec3.fromValues(0, 0, -smoothSpeed * deltaTime)
-	vec3.transformQuat(moveVec, moveVec, smoothRotation)
-	vec3.add(camera.position, camera.position, moveVec)
+	# move camera -- disabled because we are eliminating space flight in favor of trackball
+	if false
+		moveVec = vec3.fromValues(0, 0, -smoothSpeed * deltaTime)
+		vec3.transformQuat(moveVec, moveVec, smoothRotation)
+		vec3.add(camera.position, camera.position, moveVec)
 
 	# when near planets, orient the camera upright
 	distToPlanet = planetfield.getDistanceToClosestPlanet()
@@ -312,8 +317,12 @@ tick = ->
 		#cam.position -= planetVec * 0.01
 
 	# rotate camera towards user designated destination
-	quat.slerp(smoothRotation, smoothRotation, desiredRotation, 0.05)
-	camera.setRotation(smoothRotation)
+	if !cameraAutoNudgeHasOccurred
+		quat.slerp(smoothRotation, smoothRotation, desiredRotation, 0.05)
+		camera.setRotation(smoothRotation)
+		cameraAutoNudgeHasOccurred = true
+	else
+		window.TRACKBALL.update()
 
 	# render
 	render()
