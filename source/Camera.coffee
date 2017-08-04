@@ -7,7 +7,7 @@ class root.Camera
 	aspect: 1.6
 	near: 0.1
 	far: 1000.0
-	fov: xgl.degToRad(90)
+	fov: xgl.degToRad(5)   #obviously this is being overridden?
 
 	position: vec3.fromValues(0, 0, 0)
 	target: vec3.fromValues(0, 0, -1)

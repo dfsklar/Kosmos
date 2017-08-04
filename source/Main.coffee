@@ -109,7 +109,7 @@ root.kosmosMain = ->
 	camera = new Camera()
 	camera.aspect = canvas.width / canvas.height
 	camera.position = vec3.fromValues(0, 0, 0)
-	camera.fov = xgl.degToRad(90)
+	camera.fov = xgl.degToRad(40)
 
 	# restore last location
 	loadLocation()
